@@ -7,6 +7,26 @@
    padding: 0;
    box-sizing: border-box;
  }
+ /* Công thức */
+ /* :root{
+   --color-purple:dùng ctrold để tìm ; ví dụ: dịp giáng sinh người ta thay thành màu đỏ
+   --font-primary ::after
+   --font-second: jjsjjs
+
+ } ctrol f 
+ ctroll d
+ font:
+ color: var(hsahsjd)
+ ++Chỗ content nên áp dụng padding đều.
+ ++Chỗ chia 2 hàng 4 cột thì chia lại là 1 hàng 4 cột rồi cho rớt xuống
+ bằng flex-wrap: wrap;
+ */
+ /* Nên dùng img thay vì back ground vì alt
+ trên trang nên duy nhất dùng 1 thẻ H1 */
+ :root{
+   --font-h2: 'Libre Baskerville', sans-serif;
+   --main-h2-color:#2D3748;
+ }
  body{
    font-family: 'hind',sans-serif;
    color:#718096;
@@ -27,10 +47,16 @@
    width: 1170px;
    margin:auto;
  }
+ .container-fluid{
+   width: 100%;
+   padding-left: 48px;
+   padding-right: 48px;
+ }
  .row{
    display: flex;
    margin-left: -15px;
    margin-right: -15px;
+   flex-wrap: wrap;
  }
  .col{
    margin-right: 15px;
@@ -50,29 +76,39 @@
    margin: auto; */
  }
  .container .fa-newspaper{
-   font-size: 24px;
+   font-size: 28px;
    font-weight: 400;
    color: #5A67D8;
  }
  .container > a{
    font-size: 28px;
    font-weight: 600;
-   color: #2D3748;
+   color: var(--main-h2-color);
+ }
+ .btn-toogle-menu{
+   display: none;
+ }
+ #toggle-menu{
+   display: none;
  }
  .menu{
-     display: flex;
+   display: flex;
  }
  .menu li{
-     margin-left: 13px;
+   margin-left: 13px;
  }
+ 
  .menu li.home>a{
-     color: #5A67D8;
+   color: #5A67D8;
  }
  .menu li.more>a,
  .menu li.contact>a{
-     color: #718096;
-     font-size: 18px;
-     font-weight: 500;
+   color: #718096;
+   font-size: 18px;
+   font-weight: 500;
+ }
+ .menu li > a:hover{
+   color: #5A67D8;
  }
 /* ----------------------HERO----------------------- */
        
@@ -84,7 +120,7 @@
      width: 1170px;
      margin: auto;
  } */
-         /* -----------categories---------------*/
+   /* -----------categories---------------*/
  /* .hero-content .categories{
      display: flex;
      margin-left: -15px;
@@ -125,9 +161,11 @@
      width: calc(35% - 30px);
      /* margin-left: 15px;
      margin-right: 15px; */
+     object-fit: cover;
  }
  .hero-article .info .article-category{
      font-weight: 600;
+     font-size: 16px;
      color: #5A67D8;
      background: rgba(90, 103, 216, 0.05);
      border-radius: 15px;
@@ -135,10 +173,10 @@
      cursor: pointer;
  }
  .hero-article .info h2{
-     font-family: Libre Baskerville;
+     font-family: var(--font-h2);
      font-size: 45px;
      font-weight: 700;
-     color: #2D3748;
+     color: var(--main-h2-color);
      margin-top: 23px;
      margin-bottom: 23px;
  }
@@ -148,7 +186,7 @@
  /* --------------editor-pick-topics---------------- */
  .editor-pick-topics{
      padding-top: 98px;
-     padding-bottom: 132px;
+     padding-bottom: 115px;
      background: #F8F9FA;
  }
  /* .editor-pick-topics-content{
@@ -168,12 +206,11 @@
  .editor-pick h2,
  .topic h2,
  .sponser h2{
-     font-family: Libre Baskerville;
+     font-family: var(--font-h2);
      font-size: 26px;
      font-weight: 700;
-     line-height: 36px;
      margin-bottom: 26px;
-     color: #2D3748;
+     color: var(--main-h2-color);
 
  }
  .topic-sponser{
@@ -230,8 +267,7 @@
  .beauty-content .title{
    font-size: 22px;
    font-weight: 700;
-   color:#2D3748;
-   ;
+   color:var(--main-h2-color);
  }
  .author{
    margin-top: auto;
@@ -250,7 +286,7 @@
  .author .author-info p:first-child{
    font-size: 18px;
    font-weight: 500;
-   color:#2D3748;
+   color:var(--main-h2-color);
  }
  .advertise{
    display: flex;
@@ -258,12 +294,13 @@
    margin-top: 24px;
    padding: 16px;
    background: #FFFFFF;
+   border-radius: 15px;
  }
  .advertise p{
-   font-family: Libre Baskerville;
+   font-family: var(--font-h2);
    font-size: 26px;
    font-weight: 700;
-   color: #2D3748;
+   color: var(--main-h2-color);
 
  }
  .advertise span{
@@ -314,10 +351,10 @@
    display: flex;
    flex-direction: column;
    justify-content: flex-end;
+   overflow: hidden;
  }
  .sponser img{
-   height: 269px;
-   width: 370px;
+   width: 100%;
    border-radius: 15px;
    object-fit: cover;
  }
@@ -333,10 +370,10 @@
    margin: auto;
  } */
  .top-pick-content h2{
-   font-family: 'Libre Baskerville';
+   font-family: var(--font-h2);
    font-size: 26px;
    font-weight: 700;
-   color: #2D3748;
+   color: var(--main-h2-color);
    margin-bottom: 25px;
  }
  /* .top-pick-content-row{
@@ -347,8 +384,8 @@
  .item{
    width: calc(100%/3 - 30px);
    /* margin-left: 15px;
-   margin-right: 15px; */
-   height: 450px;
+     margin-right: 15px; */
+   /* height: 450px; */
    background-size: cover;
    background-position: center;
    border-radius: 15px;
@@ -363,6 +400,11 @@
    height: 100%;
    position: absolute;
    background: rgba(0, 0, 0, 0.432);
+ }
+ .item .image{
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
  }
  .item .content{
    position: absolute;
@@ -384,7 +426,7 @@
    font-weight: 400;
    color: #EEEEEE;
  }
- .girl{
+ /* .girl{
    background-image: url(images/pic1.jpg);
  }
  .egg{
@@ -392,7 +434,7 @@
  }
  .hamberger{
    background-image: url(images/pic3.jpg);
- }
+ } */
  /* ---------------------Fashion and Styles------------------- */
  .fashion-style{
    padding: 97px 0px;
@@ -409,10 +451,10 @@
    margin-bottom: 45px;
  }
  .fashion-title h2{
-   font-family: 'Libre Baskerville';
+   font-family: var(--font-h2);
    font-size: 26px;
    font-weight: 700;
-   color: #2D3748;
+   color: var(--main-h2-color);
  }
  .fashion-title span{
    padding: 6px 21px;
@@ -444,7 +486,7 @@
  }
  .fashion-content .title{
    margin-bottom: 17px;
-   color: #2D3748;
+   color: var(--main-h2-color);
  }
  /* ---------------------------BEAUTY--------------------------- */
  .beauty-wrapper{
@@ -462,10 +504,10 @@
    margin-bottom: 45px;
  }
  .beauty-title h2{
-   font-family: Libre Baskerville;
+   font-family: var(--font-h2);
    font-size: 26px;
    font-weight: 700;
-   color: #2D3748;
+   color: var(--main-h2-color);
  }
  .beauty-title span{
    padding: 6px 21px;
@@ -475,30 +517,30 @@
    border-radius: 15px;
    cursor: pointer;
  }
- .beauty-row{
+ /* .beauty-row{
    display: flex;
-   margin-bottom: 24px;
-   /* margin-left: -15px;
-   margin-right: -15px; */
- }
+   margin-left: -15px;
+   margin-right: -15px;
+ } */
  .beauty-row-col{
    width: calc(50% - 30px);
+   margin-bottom: 24px;
    /* margin-left: 15px;
    margin-right: 15px; */
    display: flex;
    border-radius: 15px;
    overflow: hidden;
+   background: #FFFFFF;
  }
  .beauty-row-col a{
    width: 220px;
  }
  .beauty-col-content{
    flex: 1;
-   background: #FFFFFF;
-   padding: 46px 0px 46px 25px;
+   padding: 30px;
  }
  .beauty-col-content .title{
-   color: #2D3748;
+   color: var(--main-h2-color);
    margin-bottom: 13px;
  }
  /* ---------------TRENDING NOW------------------------- */
@@ -507,28 +549,32 @@
   padding-top: 97px;
   padding-bottom: 97px;
  }
- .trending-content{
-   width: 1260px;
-   margin: auto;
+ .trending-content h2{
+   font-family: var(--font-h2);
+   font-size: 26px;
+   font-weight: 700;
+   color: var(--main-h2-color);
+   margin-bottom: 25px;
  }
- .trending-row{
+ /* .trending-row{
    display: flex;
    margin-left: -15px;
    margin-right: -15px;
- }
+ } */
  .trending-col{
-   margin-left: 15px;
-   margin-right: 15px;
+   width: calc(50% - 30px);
+   /* margin-left: 15px;
+   margin-right: 15px; */
    display: flex;
    border-radius: 15px;
    overflow: hidden;
+   background: #FFFFFF;
  }
  .trending-col a{
    width: 293px;
  }
  .sport-content{
    flex: 1;
-   background: #FFFFFF;
    padding: 46px 0px 46px 25px;
    display: flex;
    flex-direction: column;
@@ -543,7 +589,7 @@
    margin-bottom: 15px;
  }
  .sport-content .title{
-   color: #2D3748;
+   color: var(--main-h2-color);
    margin-bottom: 15px;
  }
  /* ------------------SUBSCRIBE------------------- */
@@ -553,8 +599,8 @@
    padding-bottom: 97px;
  }
  .subscribe-container{
-   width: 1170px;
-   margin: auto;
+   /* width: 1170px;
+   margin: auto; */
    border-radius: 15px;
    background: #FFFFFF;
    text-align: center;
@@ -562,9 +608,10 @@
    padding-bottom: 97px;
  }
  .subscribe-container h2{
-   color: #2D3748;
+   color: var(--main-h2-color);
  }
  .subscribe-container p{
+   margin-top: 10px;
    margin-bottom: 50px;
  }
  .subscribe-container span{
@@ -572,6 +619,7 @@
    background: #5A67D8;
    border-radius: 6px;
    color: #FFFFFF;
+   cursor: pointer;
  }
  /* -----------------------FOOTER------------------ */
  footer.contact{
@@ -580,8 +628,8 @@
    background: #FFFFFF;
  }
  .contact-container{
-   width: 1170px;
-   margin: auto;
+   /* width: 1170px;
+   margin: auto; */
    display: flex;
  }
  .contact-col-company{
@@ -594,14 +642,14 @@
  .contact-col-company h3 span{
    font-size: 28px;
    font-weight: 600;
-   color: #2D3748;
+   color: var(--main-h2-color);
  }
  .contact-col-company li span,
  .contact-col-company li a{
-   font-family: Libre Baskerville;
+   font-family: var(--font-h2);
    font-size: 18px;
    font-weight: 700;
-   color: #2D3748;
+   color: var(--main-h2-color);
  }
  .contact-col-company li a{
    color: #5A67D8;
@@ -614,10 +662,10 @@
    width: calc(100% / 3);
  }
  .contact-col h3{
-   font-family: Libre Baskerville;
+   font-family: var(--font-h2);
    font-size: 20px;
    font-weight: 700;
-   color:#2D3748;
+   color:var(--main-h2-color);
  }
  .contact h3{
    margin-bottom: 21px;
@@ -640,3 +688,4 @@
  .fa-dribbble{
    color:#EA4C89;
  }
+ 

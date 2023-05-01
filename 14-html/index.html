@@ -7,14 +7,17 @@
     <title>Home Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <header>
-        <nav class="container">
+        <nav class="logo container">
             <a href="#">
                 <i class="fa-solid fa-newspaper"></i>
                 NewsBlog
             </a>
+            <label for="toggle-menu" class="btn-toogle-menu"><i class="fa-solid fa-bars"></i></label>
+            <input type="checkbox" id="toggle-menu">
             <ul class="menu">
                 <li class="home"><a href="#">Home</a></li>
                 <li class="more">
@@ -143,6 +146,7 @@
             <h2>Top Pick's of this month</h2>
             <div class="top-pick-content-row row">
                 <article class="item girl col">
+                    <img src="images/pic1.jpg" alt="GIRL" class="image">
                     <div class="content">
                         <p>Fashion is Creating your Beauty image. The New fashion starts here</p>
                         <div class="author">
@@ -158,6 +162,7 @@
                     </div>
                 </article>
                 <article class="item egg col">
+                    <img src="images/pic2.jpg" alt="EGG" class="image">
                     <div class="content">
                         <p>The 5 Nonnegotiables of a Healthy Quarantine food that a Doctor Approved</p>
                         <div class="author">
@@ -173,6 +178,7 @@
                     </div>
                 </article>
                 <article class="item hamberger col">
+                    <img src="images/pic3.jpg" alt="#" class="image">
                     <div class="content">
                         <p>The 5 Nonnegotiables of a Healthy Quarantine food that a Doctor Approved</p>
                         <div class="author">
@@ -253,7 +259,7 @@
     <section class="beauty-wrapper">
         <div class="beauty-wrapper-content container">
             <div class="beauty-title">
-                <h2>Beaty</h2>
+                <h2>Beauty</h2>
                 <span>View more</span>
             </div>
             <div class="beauty-row row">
@@ -289,8 +295,6 @@
                         </div>
                     </div>
                 </article>
-            </div>
-            <div class="beauty-row row">
                 <article class="beauty-row-col col">
                     <a href="#" class="beuty-image"><img src="images/beauty3.jpg" alt=""></a>
                     <div class="beauty-col-content">
@@ -328,10 +332,10 @@
     </section>
 
     <section class="trending">
-        <div class="trending-content">
+        <div class="trending-content container-fluid">
             <h2>Trending Now</h2>
-            <div class="trending-row">
-                <article class="trending-col">
+            <div class="trending-row row">
+                <article class="trending-col col">
                     <a href="#"><img src="images/trending1.jpg" alt=""></a>
                     <div class="sport-content">
                         <span>sport</span>
@@ -349,7 +353,7 @@
                         </div>
                     </div>
                 </article>
-                <article class="trending-col">
+                <article class="trending-col col">
                     <a href="#"><img src="images/trending2.jpg" alt=""></a>
                     <div class="sport-content">
                         <span>Fitness</span>
@@ -372,7 +376,7 @@
     </section>
 
     <section class="subscribe">
-        <div class="subscribe-container">
+        <div class="subscribe-container container">
             <h2>Subscribe to our newsletter!</h2>
             <p>We'll send you the best of our blog just once a month. We promise.</p>
             <span>Subscribe</span>
@@ -380,7 +384,7 @@
     </section>
 
     <footer class="contact">
-        <div class="contact-container">
+        <div class="contact-container container">
             <div class="contact-col-company">
                 <h3>
                     <i class="fa-solid fa-newspaper"></i>

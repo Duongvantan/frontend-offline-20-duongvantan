@@ -1,0 +1,175 @@
+/* ---------RESPONSIVE WEB DESIGN------------ */
+@media screen and (max-width: 992px){
+    /* ------------RESET------------ */
+    .container{
+        width: 690px;
+     }
+    /* ------------HEADER------------- */
+    .logo{
+        flex-wrap: wrap;
+    }
+    .menu{
+        display: none;
+      }
+    .menu li{
+        margin-bottom: 5px;
+      }
+    #toggle-menu{
+        display: none;
+      }
+    .logo > a{
+        margin-left: 15px;
+      }
+    .logo .btn-toogle-menu{
+        display: unset;
+        margin-right: 15px;
+        border-radius: 5px;
+        padding: 10px;
+        background: #5A67D8;
+        color: #FFFFFF;
+        cursor: pointer;
+      }
+    .logo #toggle-menu:checked + .menu{
+        display: block;
+        width: 100%;
+      }
+/* ----------------HERO-------------------- */
+.hero-content .category{
+  width: calc(50% - 30px);
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+/* --------------HERO-ARTICLE-------------- */
+.hero-article .info{
+  width: calc(100% - 30px);
+}
+.hero-article .info h2{
+  font-size: 35px;
+}
+.hero-article .thumb{
+  width: 450px;
+  margin-top: 24px;
+}
+/* -----------EDITOR-PICK-TOPIC------------- */
+.editor-pick{
+  width: calc(100% - 30px);
+}
+.topic-sponser{
+  width: calc(100% - 30px);
+}
+/* -------editor-pick-content--------- */
+.advertise{
+  margin-bottom: 70px;
+}
+ /* ---------------topic-sponser------------ */
+.topic{
+  margin-bottom: 50px;
+}
+.topic .category{
+  margin-bottom: 16px;
+}
+.sponser{
+  overflow:visible;
+}
+/* -----------Top Pick's of this month-------- */
+.item{
+  width: calc(50% - 30px);
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+/*-------------Fashion and Styles---------------*/
+.fashion-item{
+  width: calc(50% - 30px);
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+/* -----------------BEAUTY------------ */
+.beauty-row-col{
+  width: calc(100% - 30px);
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+/* -------------TRENDING NOW------------ */
+.trending-col{
+  width: calc(100% - 30px);
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+/* ---------------FOOTER------------------ */
+.contact-container{
+  flex-wrap: wrap;
+}
+.contact-col-company{
+  width: 100%;
+  margin-bottom: 53px;
+}
+.contact-row-tool{
+  width: 100%;
+}
+}
+@media screen and (max-width: 768px){
+/* -------------------RESET-------------------- */
+.container{
+  width: 510px;
+}
+/* --------------HERO-ARTICLE-------------- */
+.hero-article .thumb{
+  width:100%;
+}
+/* -----------EDITOR-PICK-TOPIC------------- */
+        /* --editor-pick-content--*/
+.beauty-col{
+  width: calc(100% - 30px);
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.advertise{
+  margin-top: 0;
+}
+/* -----------Top Pick's of this month-------- */
+.item{
+  width: calc(100% - 30px);
+}
+/*-------------Fashion and Styles---------------*/
+.fashion-item{
+  width: calc(100% - 30px);
+}
+}
+@media screen and (max-width: 576px){
+/* ------------RESET------------ */
+.container{
+  width: 540px;
+}
+/* ------------HEADER------------- */
+.logo > a{
+  margin-left: 0px;
+}
+.logo .btn-toogle-menu{
+  margin-right: 0px;
+}
+/* -------------BEAUTY--------------- */
+.beauty-row-col{
+  display: unset;
+  overflow: visible;
+}
+.beauty-row-col .beuty-image img{
+  border-radius: 15px 0px 0px 15px;
+}
+
+/* ---------TRENDING NOW--------- */
+.trending-col{
+  display: unset;
+  overflow: visible;
+}
+.trending-col a img{
+  border-radius: 15px 0px 0px 15px;
+}
+/* -----------CONTACT-------------- */
+.contact-row-tool{
+  flex-wrap: wrap;
+}
+.contact-col{
+  width: 50%;
+  margin-bottom: 24px;
+}
+}
