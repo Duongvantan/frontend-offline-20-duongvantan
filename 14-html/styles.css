@@ -2,7 +2,7 @@
 @media screen and (max-width: 992px){
     /* ------------RESET------------ */
     .container{
-        width: 690px;
+        max-width: 690px;
      }
     /* ------------HEADER------------- */
     .logo{
@@ -110,7 +110,7 @@
 @media screen and (max-width: 768px){
 /* -------------------RESET-------------------- */
 .container{
-  width: 510px;
+  max-width: 510px;
 }
 /* --------------HERO-ARTICLE-------------- */
 .hero-article .thumb{
@@ -138,7 +138,7 @@
 @media screen and (max-width: 576px){
 /* ------------RESET------------ */
 .container{
-  width: 540px;
+  max-width: 540px;
 }
 /* ------------HEADER------------- */
 .logo > a{
