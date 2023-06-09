@@ -34,15 +34,15 @@ elGenerate.addEventListener("click", function () {
  
     var arrCenter = new Array();
 
-if(elNumber.checked === true){
+if(elNumber.checked){
     arrCenter = arrCenter.concat(NUMBERS);
 }
 
-if(elLetter.checked === true){
+if(elLetter.checked){
     arrCenter = arrCenter.concat(LETTERS);
 }
 
-if(elSymbol.checked === true){
+if(elSymbol.checked){
     arrCenter = arrCenter.concat(SYMBOLS);
 }
 
