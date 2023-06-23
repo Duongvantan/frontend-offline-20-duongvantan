@@ -1,94 +1,31 @@
-let todos = [
-    {
-        id: makeId(5),
-        name: 'sleeping edit',
-        level: 1,
-    },
-    {
-        id: makeId(5),
-        name: 'eating',
-        level: 3,
-    },
-    {
-        id: makeId(5),
-        name: 'todo new',
-        level: 2,
-    },
-    {
-        id: makeId(5),
-        name: 'todo 2',
-        level: 1,
-    },
-    {
-        id: makeId(5),
-        name: 'todo 3',
-        level: 1,
-    },
-    {
-        id: makeId(5),
-        name: 'todo 4',
-        level: 2,
-    },
-    {
-        id: makeId(5),
-        name: 'todo 5',
-        level: 3,
-    },
-    {
-        id: makeId(5),
-        name: 'todo 6',
-        level: 1,
-    },
-    {
-        id: makeId(5),
-        name: 'coding',
-        level: 3,
-    },
-    {
-        id: makeId(5),
-        name: 'dfdfg',
-        level: 1,
-    },
-];
 
-let elName = document.getElementById("name");
-let elLevel = document.getElementById("level");
-let elSave = document.getElementById("btn-save");
-let elCancel = document.getElementById("cancel");
-let elListTodo = document.getElementById("todos");
-let elDelete = document.getElementById("btn-danger");
-let elSearch = document.getElementById("search");
-let elFilterLevel = document.getElementById("filter-level");
+let listTodos = document.getElementById("todos");
+let btnSave = document.getElementById("btn-save");
+let inputName = document.getElementById("name");
+let inputLevel = document.getElementById("level");
+let btnCancel = document.getElementById("cancel");
+let fixList = document.getElementById("todos");
+let inputSearch = document.getElementById("search");
+let elAll = document.getElementById("status-all");
+let elCompleted = document.getElementById("status-completed");
+let elIncompleted = document.getElementById("status-incompleted");
 let elSortBy = document.getElementById("sort-by");
 let elSortDir = document.getElementById("sort-dir");
+let elFilterLevel = document.getElementById("filter-level");
+
 let idEdit = "";
 
-createList(todos);
 
-//=================DELETE WITH EDIT===========//
-elListTodo.addEventListener("click", (e) => {
-    let el = e.target;
-    if (el.classList.contains("btn-danger")) {
-        todos = todos.filter(todo => {
-            return todo.id !== el.dataset.id
-        })
-        createList(todos);
-    };
+let todos = JSON.parse(localStorage.getItem("TODOS"));
 
-    if (el.classList.contains("btn-primary")) {
-        let todo = todos.find(todo => {
-            return todo.id === el.dataset.id;
-        })
-        idEdit = el.dataset.id;
-        elName.value = todo.name;
-        elLevel.value = todo.level;
-    }
-})
+if (!todos) todos = [];
+createTodo(todos);
 
-//================SAVE=================//
-elSave.addEventListener("click", () => {
-    let nameValue = elName.value.trim();
-    let levelValue = parseFloat(elLevel.value);
+
+//===========SAVE with EDIT==================//
+btnSave.addEventListener("click", () => {
+    let nameValue = inputName.value.trim();
+    let levelValue = parseFloat(inputLevel.value);
     if (nameValue) {
         if (idEdit) {
             let indexEdit = todos.findIndex(todo => {
@@ -101,154 +38,191 @@ elSave.addEventListener("click", () => {
             let newTodo = {
                 id: makeId(5),
                 name: nameValue,
-                level: levelValue
+                level: levelValue,
+                isCompleted: false,
             }
             todos.push(newTodo);
         }
-        createList(todos);
-        elName.value = "";
+        localStorage.setItem("TODOS", JSON.stringify(todos));
+        createTodo(todos);
+        inputName.value = "";
     } else {
-        alert("Không được bỏ trống");
-    }
-});
-
-//===============Cancel==============//
-elCancel.addEventListener("click", () => {
-    elName.value = "";
-});
-
-//===============Search==============//
-elSearch.addEventListener("input", () => {
-    let searchValue = elSearch.value;
-    let newTodo = todos.filter(todo => {
-        return todo.name.toLowerCase().includes(searchValue.toLowerCase())
-    })
-    createList(newTodo);
-    //================Create HIGH LIGHT==============//
-    let todoName = document.getElementsByClassName("todo-name");
-    console.log('todoName', todoName);
-    if (searchValue) {
-        for (let i = 0; i < todoName.length; i++) {
-            let nameContent = todoName[i].innerHTML;
-            let index = nameContent.indexOf(searchValue);
-            if (index >= 0) {
-                nameContent = nameContent.substring(0, index) + "<mark>" + nameContent.substring(index, index + searchValue.length) + "</mark>" + nameContent.substring(index + searchValue.length);
-                todoName[i].innerHTML = nameContent;
-            }
-        }
+        alert("Phải nhập tên vào");
     }
 })
 
-//================Filter by level==============//
-elFilterLevel.addEventListener("change", () => {
-    let level = parseInt(elFilterLevel.value);
-    console.log('elFilterLevel.value', level);
-    console.log(!!level);
 
-    if (level) {
-        let newTodo = todos.filter(todo => {
-            return todo.level === level;
+//================CANCEL==============//
+btnCancel.addEventListener("click", () => {
+    inputName.value = "";
+})
+
+//================EDIT-DELETE-STATUS================//
+fixList.addEventListener("click", (e) => {
+    let el = e.target;
+    if (el.classList.contains("btn-delete")) {
+        todos = todos.filter(todo => {
+            return todo.id !== el.dataset.id;
         })
-        createList(newTodo);
-    } else {
-        createList(todos);
+        createTodo(todos)
+    }
+
+    if (el.classList.contains("btn-edit")) {
+        let todo = todos.find(todo => {
+            return todo.id === el.dataset.id;
+        })
+        idEdit = todo.id;
+        inputName.value = todo.name;
+        inputLevel.value = todo.level;
+    }
+
+    if (el.classList.contains("todo-name")) {
+        let indexStatus = todos.findIndex(todo => {
+            return todo.id === el.dataset.id;
+        })
+
+        let statusTodo = todos[indexStatus].isCompleted;
+        statusTodo ? todos[indexStatus].isCompleted = false : todos[indexStatus].isCompleted = true;
+
+        localStorage.setItem("TODOS", JSON.stringify(todos));
+        createTodo(todos);
     }
 })
 
-//===============SORT===============//
+//===================SEARCH==================//
+inputSearch.addEventListener("input", () => {
+    let searchValue = inputSearch.value;
+    let newTodo = todos.filter(todo => {
+        return todo.name.toLowerCase().includes(searchValue.toLowerCase());
+    })
+    createTodo(newTodo, searchValue);
+})
 
-// if(sortBy)
+//=================Filter Status==============//
+elAll.addEventListener("click", () => {
+    createTodo(todos);
+});
+
+
+elCompleted.addEventListener("click", () => {
+    let newTodo = todos.filter(todo => {
+        return todo.isCompleted === true;
+    })
+    createTodo(newTodo);
+})
+
+elIncompleted.addEventListener("click", () => {
+    let newTodo = todos.filter(todo => {
+        return todo.isCompleted === false;
+    })
+    createTodo(newTodo);
+})
+
+//=============SORT==============//
 let sortBy = "name";
 let sortDir = "asc";
 
-elSortBy.addEventListener("change", () => {
+elSortBy.addEventListener("change",()=>{
     sortBy = elSortBy.value;
-    let newTodo = sortList(todos, sortBy, sortDir);
-    createList(newTodo);
-});
+   let newTodo = sortTodos(todos, sortBy, sortDir);
+   createTodo(newTodo);
+})
 
-elSortDir.addEventListener("change", () => {
+elSortDir.addEventListener("change",()=>{
     sortDir = elSortDir.value;
-    let newTodo = sortList(todos, sortBy, sortDir);
-    createList(newTodo);
-});
+    console.log('sortDir', sortDir);
+    
+    let newTodo = sortTodos(todos, sortBy, sortDir);
+    createTodo(newTodo);
+})
 
-function sortList(items, by, dir) {
-    if (by === "name") {
-        if (dir === "asc") {
-            items.sort((a, b) => {
-                let nameA = a.name.toUpperCase();
-                let nameB = b.name.toUpperCase();
-                if (nameA > nameB) return 1;
-                if (nameA < nameB) return -1;
-            })
-        }
-        if (dir === "desc") {
-            items.sort((a, b) => {
-                let nameA = a.name.toUpperCase();
-                let nameB = b.name.toUpperCase();
-                if (nameA > nameB) return -1;
-                if (nameA < nameB) return 1;
-            })
-        }
-    } else {
-        if (dir === "asc") {
-            items.sort((a, b) => {
-                let levelA = a.level;
-                let levelB = b.level;
-                if (levelA > levelB) return 1;
-                if (levelA < levelB) return -1;
-            })
-        }
-        if (dir === "desc") {
-            items.sort((a, b) => {
-                let levelA = a.level;
-                let levelB = b.level;
-                if (levelA > levelB) return -1;
-                if (levelA < levelB) return 1;
-            })
-        }
+//==============FILTER LEVEL=============//
+elFilterLevel.addEventListener("change",()=>{
+    let level = elFilterLevel.value;
+    if(level === "all"){
+        createTodo(todos);
+    }else{
+        let newTodos = todos.filter(todo =>{
+            return todo.level === parseInt(level);
+        })
+        createTodo(newTodos);
+        console.log('newTodos', newTodos);
+        
     }
-    return items;
-}
+})
 
-function createList(items) {
+function sortTodos(listTodos, sortBy, sortDir) {
+    let sortItems = [...listTodos];
+    let valueA;
+    let valueB;
+    sortItems.sort((a, b) => {
+        if (sortBy === "name") {
+            valueA = a[sortBy].toLowerCase();
+            valueB = b[sortBy].toLowerCase();
+        } else {
+            valueA = a[sortBy];
+            valueB = b[sortBy];
+        }
+
+        if (sortDir ==="asc") {
+            return valueA > valueB ? 1 : -1;
+        } else {
+            return valueA > valueB ? -1 : 1;
+        }
+    })
+    return sortItems;
+}
+function createTodo(items, searchValue = "") {
     let html = "";
     items.forEach(item => {
-        let levelColor = "";
+        let className = "";
         let levelText = "";
+        let todoName = item.name;
+        let completed = item.isCompleted;
+        completed = completed ? "completed" : "";
+        if (searchValue !== "") {
+            let patt = new RegExp(searchValue, 'igm');
+            todoName = todoName.replace(patt, (match) => {
+                return `<mark>${match}</mark>`;
+            })
+        }
+
         switch (item.level) {
             case 1:
-                levelColor = "secondary";
-                levelText = "Thấp";
+                className = "bg-secondary";
+                levelText = "Thấp";
                 break;
+
             case 2:
-                levelColor = "info";
-                levelText = "Bình Thường";
+                className = "bg-info";
+                levelText = "Bình thường";
                 break;
+
             case 3:
-                levelColor = "danger";
+                className = "bg-danger";
                 levelText = "Cao";
                 break;
         }
         html += `
-        <li class="item mb-1">
-              <div class="d-flex align-items-center justify-content-between">
-                <span role="button" class="todo-name">${item.name}</span>
-                <span class="badge bg-${levelColor}">${levelText}</span>
-                <div class="action">
-                  <button class="btn btn-sm btn-primary" data-id=${item.id}>
-                    Sửa
-                  </button>
-                  <button class="btn btn-sm btn-danger" data-id=${item.id}>
-                    Xóa
-                  </button>
+            <li class="item mb-1">
+                <div class="d-flex align-items-center justify-content-between">
+                  <span role="button" class="todo-name ${completed}" data-id="${item.id}">${todoName}</span>
+                  <span class="badge ${className}">${levelText}</span>
+                  <div class="action">
+                    <button class="btn btn-sm btn-primary btn-edit" data-id="${item.id}">
+                      Sửa
+                    </button>
+                    <button class="btn btn-sm btn-danger btn-delete" data-id="${item.id}">
+                      Xóa
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </li>`
-    })
-    elListTodo.innerHTML = html;
-};
+              </li>
+    `
+    });
+
+    listTodos.innerHTML = html;
+}
 
 function makeId(length) {
     let result = '';
@@ -256,7 +230,7 @@ function makeId(length) {
     const charactersLength = characters.length;
     let counter = 0;
     while (counter < length) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        result += characters[Math.floor(Math.random() * charactersLength)];
         counter += 1;
     }
     return result;
