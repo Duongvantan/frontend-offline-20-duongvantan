@@ -1,106 +1,154 @@
-const elNavbar = document.getElementsByClassName("nav-menu");
 const elGridView = document.getElementById("grid-view");
 const elImageList = document.getElementById("image-list");
 const elArticle = document.getElementById("posts");
-fetch("https://apiforlearning.zendvn.com/api/v2/categories_news")
-    .then((response) => response.json())
-    .then((res) => {
-        let data = res.data;
-        let htmlMenu = "";
-        let htmlDropMenu = "";
-        let htmlLi = "";
+const elLoadMore = document.getElementById("btn-load-more");
+let currentPage = 1;
 
-        htmlLi = `
-                <li class="nav-item dropdown nav-select">
-                  <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Other Menu</a>
-                  <ul class="dropdown-menu list-select">
-                  </ul>
-                </li>
-              `;
-        
-        data.forEach((item, index) => {
-            if (index <= 2) {
-                htmlMenu +=
-                    `
-                <li class="nav-item">
-                    <a class="nav-link" href="#">${item.name}</a>
-                </li>
-                `
-            } else {
-                htmlDropMenu +=
-                    `
-                <li class="nav-item"><a class="dropdown-item" href="#">${item.name}</a></li>
-                `
-            }
-        });
+// fetch("https://apiforlearning.zendvn.com/api/v2/categories_news")
+//   .then((response) => response.json())
+//   .then((res) => {
+//     let data = res.data;
+//     let htmlMenu = "";
+//     let htmlDropMenu = "";
+//     let htmlLi = "";
 
-        for (let i = 0; i < elNavbar.length; i++) {
+//     htmlLi = `
+//                 <li class="nav-item dropdown nav-select">
+//                   <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Danh Mục Khác</a>
+//                   <ul class="dropdown-menu list-select">
+//                   </ul>
+//                 </li>
+//               `;
 
-            elNavbar[i].innerHTML = htmlMenu + htmlLi;
-            console.log(elNavbar[i].innerHTML);
+//     data.forEach((item, index) => {
+//       if (index <= 2) {
+//         htmlMenu += /*html*/
+//           `
+//                 <li class="nav-item">
+//                     <a class="nav-link" href="#">${item.name}</a>
+//                 </li>
+//                 `
+//       } else {
+//         htmlDropMenu += /*html*/
+//           `
+//                 <li class="nav-item"><a class="dropdown-item" href="#">${item.name}</a></li>
+//                 `
+//       }
+//     });
 
-            const elListSelect = document.getElementsByClassName("list-select");
+//     for (let i = 0; i < elNavbar.length; i++) {
 
-            elListSelect[i].innerHTML = htmlDropMenu;
-        } 
-    })
+//       // elNavbar[i].innerHTML = htmlMenu + htmlLi;
+//       // console.log(elNavbar[i].innerHTML);
 
-fetch("https://apiforlearning.zendvn.com/api/v2/articles/popular?limit=7")
-    .then((response) => response.json())
-    .then((res) => {
-        let data = res.data;
-        let htmlUp = "";
-        let htmlDown = "";
-        data.forEach((item, index) => {
-            if (index <= 1) {
-                htmlUp += `
+//       // const elListSelect = document.getElementsByClassName("list-select");
+
+//       // elListSelect[i].innerHTML = htmlDropMenu;
+//       elNavbar[i].innerHTML = htmlMenu + /*html*/`
+//             <li class="nav-item dropdown nav-select">
+//               <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Danh Mục Khác</a>
+//               <ul class="dropdown-menu list-select">
+//               ${htmlDropMenu}
+//               </ul>
+//             </li>
+//           `;
+//     }
+//   })
+
+
+
+//===========ARTICLE TOP BOTTOM===================//
+API.get("articles/popular?limit=7")
+  .then((res) => {
+    let data = res.data.data;
+    console.log('data', data);
+    let dataTop = data.slice(0, 2);
+    let dataDown = data.slice(2);
+
+    renderArticleTop(dataTop);
+    renderArticleDown(dataDown);
+  })
+
+// API.get("articles?limit=4")
+//   .then((res) => {
+//     let data = res.data.data;
+//     renderArticleLatest(data)
+//   })
+fetchArticleLatest(page = 1)
+
+elLoadMore.addEventListener("click", () => {
+  elLoadMore.innerText = "Đang Tải...."
+  elLoadMore.disabled = true;
+  currentPage++;
+  fetchArticleLatest(currentPage);
+})
+
+function renderArticleTop(arrData) {
+  let htmlUp = "";
+  arrData.forEach((item) => {
+    let publishDate = dayjs(item.publish_date).fromNow();
+    // let publishDate = item.publish_date;
+    // let date = moment(publishDate, "YYYY-MM-DD");
+    // console.log(date.fromNow());
+
+    htmlUp += /*html*/
+      `
             <div class="col-lg-6 mb-4">
-            <figure class="overlay caption caption-overlay rounded mb-0"><a href="#"> <img
+            <figure class="overlay caption caption-overlay rounded mb-0 h-100"><a href="#" class="h-100"> <img class="h-100"
                   src="${item.thumb}" alt="" /></a>
-              <figcaption>
-                <span class="badge badge-lg bg-white text-uppercase mb-3">Places</span>
+              <figcaption style="background: rgba(0, 0, 0, 0.5)">
+                <span class="badge badge-lg bg-white text-uppercase mb-3">${item.category.name}</span>
                 <h2 class="post-title h3 mt-1 mb-3"><a href="./blog-post.html">${item.title}</a></h2>
                 <ul class="post-meta text-white mb-0">
-                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>${item.publish_date}</span></li>
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>${publishDate}</span></li>
                   <li class="post-author"><a href="#"><i class="uil uil-user"></i><span>By ${item.author}</span></a></li>
-                  <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>${1}<span> Comments</span></a></li>
+                  <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>${item.views}<span> Comments</span></a></li>
                 </ul>
               </figcaption>
             </figure>
           </div>
             `
-            } else {
-                htmlDown += `
+  })
+  elGridView.innerHTML = htmlUp;
+}
+
+function renderArticleDown(arrData) {
+  let htmlDown = "";
+  arrData.forEach((item) => {
+    let publishDate = dayjs(item.publish_date).fromNow();
+    // let publishDate = item.publish_date;
+    // let date = moment(publishDate, "YYYY-MM-DD");
+    // console.log(date.fromNow());
+    htmlDown += /*html*/
+      `
             <li>
-            <figure class="rounded"><a href="./blog-post.html"><img src="${item.thumb}" alt="" /></a>
-            </figure>
-            <div class="post-content">
-              <h6 class="mb-2"> <a class="link-dark" href="./blog-post.html">${item.title}</a> </h6>
-              <ul class="post-meta">
-                <li class="post-date"><i class="uil uil-calendar-alt"></i><span>${item.publish_date}</span></li>
-                <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>${item.status}</a></li>
-              </ul>
-              <!-- /.post-meta -->
-            </div>
-          </li>
-            `
-            }
-        })
-        elImageList.innerHTML = htmlDown;
-        elGridView.innerHTML = htmlUp;
+              <figure class="rounded"><a href="./blog-post.html"><img src="${item.thumb}" alt="" /></a>
+              </figure>
+              <div class="post-content">
+                <h6 class="mb-2"> <a class="link-dark line-clamp line-clamp-1" title="${item.title}" href="./blog-post.html">${item.title}</a> </h6>
+                <ul class="post-meta">
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>${publishDate}</span></li>
+                  <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>${item.views}</a></li>
+                </ul>
+                <!-- /.post-meta -->
+              </div>
+            </li>
+              `
+  })
+  elImageList.innerHTML = htmlDown;
+}
 
-    })
-
-fetch("https://apiforlearning.zendvn.com/api/v2/articles?limit=4")
-    .then((response) => response.json())
-    .then((res) => {
-        let data = res.data;
-        let html = "";
-        data.forEach((item) => {
-            html +=
-                `
+function renderArticleLatest(arrData) {
+  let html = "";
+  arrData.forEach((item) => {
+    let publishDate = dayjs(item.publish_date).fromNow();
+    // let publishDate = item.publish_date;
+    // let date = moment(publishDate, "YYYY-MM-DD");
+    // console.log(date.fromNow());
+    html +=/*html*/
+      `
             <article class="item post col-md-6">
-            <div class="card shadow-lg">
+            <div class="card shadow-lg h-100">
               <figure class="card-img-top overlay overlay-1"><a href="#"> <img src="${item.thumb}"
                     alt="" /></a>
                 <figcaption>
@@ -117,15 +165,15 @@ fetch("https://apiforlearning.zendvn.com/api/v2/articles?limit=4")
                 </div>
                 <!-- /.post-header -->
                 <div class="post-content">
-                  <p>${item.description}</p>
+                  <p class="line-clamp line-clamp-4">${item.description}</p>
                 </div>
                 <!-- /.post-content -->
               </div>
               <!--/.card-body -->
               <div class="card-footer">
                 <ul class="post-meta d-flex mb-0">
-                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>${item.publish_date}</span></li>
-                  <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>${item.status}</a></li>
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>${publishDate}</span></li>
+                  <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>${item.views}</a></li>
                   <li class="post-likes ms-auto"><a href="#"><i class="uil uil-heart-alt"></i>5</a></li>
                 </ul>
                 <!-- /.post-meta -->
@@ -135,7 +183,17 @@ fetch("https://apiforlearning.zendvn.com/api/v2/articles?limit=4")
             <!-- /.card -->
           </article>
             `
-        })
-        elArticle.innerHTML = html;
+  })
+  elArticle.innerHTML += html;
+}
 
+function fetchArticleLatest(page = 1) {
+  API.get(`articles?limit=4&page=${page}`)
+    .then((res) => {
+      let data = res.data.data;
+      if (currentPage === 1) elArticle.innerHTML = "";
+      renderArticleLatest(data);
+      elLoadMore.innerText = "Xem Thêm";
+      elLoadMore.disabled = false;
     })
+}
