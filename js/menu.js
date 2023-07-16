@@ -76,6 +76,8 @@ function renderMenu(arrData) {
               <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">${loginName}</a>
               <ul class="dropdown-menu">
                 <li class="nav-item"><a class="dropdown-item" href="profile.html">Thông tin tài khoản</a></li>
+                <li class="nav-item"><a class="dropdown-item" href="change-password.html">Đổi mật khẩu</a></li>
+                <li class="nav-item"><a class="dropdown-item" href="admin-post-create.html">Thêm bài viết</a></li>
                 <li class="nav-item"><a class="dropdown-item btn-logout" href="#">Đăng Xuất</a></li>
               </ul>
             </li>`

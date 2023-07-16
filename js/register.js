@@ -10,7 +10,7 @@ API.get('auth/me', {
 const formName = document.getElementById("name");
 const formEmail = document.getElementById("email");
 const formPhone = document.getElementById("phone");
-const formAddress = document.getElementById("address")
+const formAddress = document.getElementById("address");
 const formPassword = document.getElementById("loginPassword");
 const elRegister = document.getElementById("login-form");
 

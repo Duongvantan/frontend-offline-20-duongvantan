@@ -20,8 +20,6 @@ const elErr = document.getElementById("error");
 //axios.post(url, data);
 elForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log('123');
-    
     let email = elEmail.value;
     let password = elPasword.value;
 
@@ -41,7 +39,5 @@ elForm.addEventListener("submit", (e) => {
         <i class="uil uil-times-circle"></i> Thông tin đăng nhập không đúng
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`
-        
-        
      })
 })
