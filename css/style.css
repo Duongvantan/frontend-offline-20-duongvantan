@@ -1,25 +1,39 @@
 .line-clamp {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;  
-    overflow: hidden;
-  }
-  
-  .line-clamp-4{
-    -webkit-line-clamp: 4;
-  }
-  .line-clamp-3{
-    -webkit-line-clamp: 3;
-  }
-  .line-clamp-1{
-    -webkit-line-clamp: 1;
-  }
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
-  .active > .page-link, .page-link.active {
-    color:blue;
-    background-color: aqua;
-  }
+.line-clamp-4 {
+  -webkit-line-clamp: 4;
+}
 
-  mark{
-    background-color: red;
-    color: black;
-  }
+.line-clamp-3 {
+  -webkit-line-clamp: 3;
+}
+
+.line-clamp-1 {
+  -webkit-line-clamp: 1;
+}
+
+.active>.page-link,
+.page-link.active {
+  color: blue;
+  background-color: aqua;
+}
+
+mark {
+  background-color: red;
+  color: black;
+}
+
+.ck-editor__editable[role="textbox"] {
+  /* editing area */
+  min-height: 200px;
+}
+
+.ck-content .image {
+  /* block images */
+  max-width: 80%;
+  margin: 20px auto;
+}

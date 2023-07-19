@@ -5,6 +5,9 @@ const elH1 = document.getElementById("titleCategory");
 const params = new URLSearchParams(window.location.search);
 const id = parseInt(params.get('id'));
 let currentPage = 1;
+const PAGE_RANGE = 3;
+let star = 1;
+let end = PAGE_RANGE;
 
 //==============Article=============//
 fetchArticle();
@@ -21,12 +24,25 @@ elPagination.addEventListener("click", (e) => {
 
   if (el.classList.contains("pagePrevious")) {
     currentPage--;
+    if(currentPage % PAGE_RANGE === 0){
+      end = currentPage;
+      star = end - PAGE_RANGE + 1;
+    }
     fetchArticle(currentPage);
     window.scrollTo(0, 0);
   }
 
   if (el.classList.contains("pageNext")) {
     currentPage++;
+    /*1 2 3 4 5
+      6 7 8 9 10
+    11 12 13 14 15
+    16 17 18 19 20
+    21 22 23 */
+    if(currentPage % PAGE_RANGE === 1){
+      star = currentPage;
+      end += PAGE_RANGE;
+    }
     fetchArticle(currentPage);
     window.scrollTo(0, 0)
   }
@@ -93,9 +109,11 @@ function rederArticle(arrData) {
 function renderNextPage(totalPage) {
   let previous = currentPage === 1 ? 'disabled' : '';
   let next = currentPage === totalPage ? 'disabled' : '';
-
+    if(end > totalPage){
+        end = totalPage;
+    }
   let html = "";
-  for (let i = 1; i <= totalPage; i++) {
+  for (let i = star; i <= end; i++) {
     const active = currentPage === i ? 'active' : '';
     html += `<li class="page-item ${active}"><a class="page-link page-number " href="#">${i}</a></li>`
   }

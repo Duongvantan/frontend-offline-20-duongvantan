@@ -15,6 +15,8 @@ API.get('auth/me', {
     window.location.href="index.html"
   })
 
+ClassicEditor.create( document.querySelector('#content') ).catch( error => {console.error(error );} );
+
 let elForm = document.getElementById("login-form");
 let elImages = document.getElementById("images");
 let elTitle = document.getElementById("title");
@@ -33,13 +35,16 @@ elImages.addEventListener("change",()=>{
 elForm.addEventListener("submit",(e)=>{
     e.preventDefault();
     
-    API.post("articles/create", 
-    { title: elTitle.value.trim(), 
-    description: elDescription.value.trim(), 
-    content: elContent.value.trim(), 
-    thumb: elImages.value.trim(), 
-    category_id: elCategory.value.trim()},
-    {
+    const data = {
+      title: elTitle.value.trim(), 
+      description: elDescription.value.trim(), 
+      content: elContent.value.trim(), 
+      thumb: elImages.value.trim(), 
+      category_id: elCategory.value.trim()
+    }
+
+    API.post("articles/create", data,
+      {
         headers: {
           Authorization: `Bearer ${token}`
         }
