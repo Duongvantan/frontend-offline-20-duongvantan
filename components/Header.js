@@ -5,7 +5,7 @@ class Header extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML = /*html*/
-            ` <header class="wrapper bg-gray">
+          `<header class="wrapper bg-gray">
             <nav class="navbar navbar-expand-lg center-nav navbar-light navbar-bg-light">
               <div class="container flex-lg-row flex-nowrap align-items-center">
                 <div class="navbar-brand w-100">

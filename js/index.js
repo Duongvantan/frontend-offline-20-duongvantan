@@ -2,6 +2,7 @@ const elGridView = document.getElementById("grid-view");
 const elImageList = document.getElementById("image-list");
 const elArticle = document.getElementById("posts");
 const elLoadMore = document.getElementById("btn-load-more");
+const elReviewed = document.getElementById("article-reviwed");
 let currentPage = 1;
 
 // fetch("https://apiforlearning.zendvn.com/api/v2/categories_news")
@@ -60,6 +61,8 @@ let currentPage = 1;
 //===========ARTICLE TOP BOTTOM===================//
 API.get("articles/popular?limit=7")
   .then((res) => {
+    console.log('res', res);
+    
     let data = res.data.data;
     console.log('data', data);
     let dataTop = data.slice(0, 2);
@@ -75,7 +78,7 @@ API.get("articles/popular?limit=7")
 //     renderArticleLatest(data)
 //   })
 fetchArticleLatest(page = 1)
-
+renderArticleReviewed()
 elLoadMore.addEventListener("click", () => {
   elLoadMore.innerText = "Đang Tải...."
   elLoadMore.disabled = true;
@@ -94,11 +97,11 @@ function renderArticleTop(arrData) {
     htmlUp += /*html*/
       `
             <div class="col-lg-6 mb-4">
-            <figure class="overlay caption caption-overlay rounded mb-0 h-100"><a href="#" class="h-100"> <img class="h-100"
+            <figure class="overlay caption caption-overlay rounded mb-0 h-100"><a href="detail.html?id=${item.id}" class="h-100"> <img class="h-100"
                   src="${item.thumb}" alt="" /></a>
               <figcaption style="background: rgba(0, 0, 0, 0.5)">
                 <span class="badge badge-lg bg-white text-uppercase mb-3">${item.category.name}</span>
-                <h2 class="post-title h3 mt-1 mb-3"><a href="./blog-post.html">${item.title}</a></h2>
+                <h2 class="post-title h3 mt-1 mb-3"><a href="detail.html?id=${item.id}">${item.title}</a></h2>
                 <ul class="post-meta text-white mb-0">
                   <li class="post-date"><i class="uil uil-calendar-alt"></i><span>${publishDate}</span></li>
                   <li class="post-author"><a href="#"><i class="uil uil-user"></i><span>By ${item.author}</span></a></li>
@@ -122,10 +125,10 @@ function renderArticleDown(arrData) {
     htmlDown += /*html*/
       `
             <li>
-              <figure class="rounded"><a href="./blog-post.html"><img src="${item.thumb}" alt="" /></a>
+              <figure class="rounded"><a href="detail.html?id=${item.id}"><img src="${item.thumb}" alt="" /></a>
               </figure>
               <div class="post-content">
-                <h6 class="mb-2"> <a class="link-dark line-clamp line-clamp-1" title="${item.title}" href="./blog-post.html">${item.title}</a> </h6>
+                <h6 class="mb-2"> <a class="link-dark line-clamp line-clamp-1" title="${item.title}" href="detail.html?id=${item.id}">${item.title}</a> </h6>
                 <ul class="post-meta">
                   <li class="post-date"><i class="uil uil-calendar-alt"></i><span>${publishDate}</span></li>
                   <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>${item.views}</a></li>
@@ -149,7 +152,7 @@ function renderArticleLatest(arrData) {
       `
             <article class="item post col-md-6">
             <div class="card shadow-lg h-100">
-              <figure class="card-img-top overlay overlay-1"><a href="#"> <img src="${item.thumb}"
+              <figure class="card-img-top overlay overlay-1"><a href="detail.html?id=${item.id}"> <img src="${item.thumb}"
                     alt="" /></a>
                 <figcaption>
                   <h5 class="from-top mb-0">Read More</h5>
@@ -158,10 +161,10 @@ function renderArticleLatest(arrData) {
               <div class="card-body">
                 <div class="post-header">
                   <div class="post-category">
-                    <a href="#" class="hover link-yellow" rel="category">${item.category.name}</a>
+                    <a href="detail.html?id=${item.id}" class="hover link-yellow" rel="category">${item.category.name}</a>
                   </div>
                   <!-- /.post-category -->
-                  <h2 class="post-title h3 mt-1 mb-3"><a class="link-navy" href="./blog-post.html">${item.title}</a></h2>
+                  <h2 class="post-title h3 mt-1 mb-3"><a class="link-navy" href="detail.html?id=${item.id}">${item.title}</a></h2>
                 </div>
                 <!-- /.post-header -->
                 <div class="post-content">
@@ -196,4 +199,13 @@ function fetchArticleLatest(page = 1) {
       elLoadMore.innerText = "Xem Thêm";
       elLoadMore.disabled = false;
     })
+}
+
+function renderArticleReviewed(){
+  const ARTICLES_VIEWED = JSON.parse(localStorage.getItem("ARTICLES_VIEWED")) || [];
+  let html="";
+  ARTICLES_VIEWED.forEach(article=>{
+    html+=`<li><a href="detail.html?id=${article.id}" class="link-dark line-clamp line-clamp-1" title="${article.title}">${article.title}</a></li>`
+  })
+  elReviewed.innerHTML = html;
 }

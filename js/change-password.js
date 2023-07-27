@@ -23,12 +23,12 @@ let elMessage = document.getElementById("error");
 
 elForm.addEventListener("submit",(e)=>{
     e.preventDefault();
-    
-    API.put("/auth/change-password", 
-    {password_current: elPasswordCurrent.value.trim(),
-    password: elPasswordNew.value.trim(),
-    password_confirmation: elRepeatPassword.value.trim()},
-    {
+    let password_current = elPasswordCurrent.value.trim();
+    let password = elPasswordNew.value.trim();
+    let password_confirmation = elRepeatPassword.value.trim();
+    let data = {password_current,password,password_confirmation}
+    API.put("/auth/change-password", data,
+      {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -40,6 +40,7 @@ elForm.addEventListener("submit",(e)=>{
         </div>`
       }).catch((err)=>{
         const errors = err.response.data.errors;
+          console.log('errors', errors);
           
           let message = "";
           for(const key in errors){

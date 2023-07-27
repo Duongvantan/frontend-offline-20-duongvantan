@@ -33,15 +33,15 @@
     <section class="wrapper bg-light">
       <div class="container pb-14 pb-md-16">
         <div class="row">
-          <div class="col-lg-8 col-xl-10 col-xxl-5 mx-auto mt-n20">
+          <div class="col-lg-8 col-xl-6 col-xxl-5 mx-auto mt-n20">
             <div class="card">
               <div class="card-body p-11 text-center">
                 <form class="text-start mb-3" id="login-form">
                   <div id="error"></div>
                   <img src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" class="img-fluid mb-3" id="thumb-preview" alt="">
                   <div class="form-floating mb-4">
-                    <input type="text" class="form-control" placeholder="Hình ảnh" id="images">
-                    <label for="email">Hình ảnh</label>
+                    <button type="button" id="random-thumb" class="btn btn-success w-100 mb-2">Random Thumb</button>
+                    <input type="text" class="form-control" disabled placeholder="Hình ảnh" id="images">
                   </div>
                   <div class="form-floating mb-4">
                     <input type="text" class="form-control" placeholder="Tiêu đề" id="title">
@@ -86,14 +86,15 @@
   <script src="./assets/js/theme.js"></script>
   <script src="./components/Footer.js"></script>
   <script src="./components/Header.js"></script>
+  
   <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.9/plugin/relativeTime.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/vi.js"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
 
   <script src="./js/define.js"></script>
   <script src="./js/menu.js"></script>
-  <!-- <script src="./js/login.js"></script> -->
   <script src="./js/admin-post-create.js"></script>
 </body>
 

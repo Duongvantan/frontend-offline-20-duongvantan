@@ -25,6 +25,19 @@ let elCategory = document.getElementById("category_id");
 let elContent = document.getElementById("content");
 let elMessage = document.getElementById("error");
 let elImg = document.getElementById("thumb-preview");
+let btnRandomThumb = document.getElementById("random-thumb");
+
+// 0phbjeqQGHggQc2p8M-_Sf-YkVH1reLJodWqDtAIfi4
+// OY_GZuq3NGBnLovRwZExtq8btXctxbNeaAG4zhxznBA
+// https://api.unsplash.com/photos/random?orientation=landscape&client_id=OY_GZuq3NGBnLovRwZExtq8btXctxbNeaAG4zhxznBA
+btnRandomThumb.addEventListener("click",()=>{
+  axios.get("https://api.unsplash.com/photos/random?orientation=landscape&client_id=OY_GZuq3NGBnLovRwZExtq8btXctxbNeaAG4zhxznBA")
+  .then((res)=>{
+    const urlImg = res.data.urls.regular;
+    elImg.src=urlImg;
+    elImages.value=urlImg;
+  })
+})
 
 elImages.addEventListener("change",()=>{
     const url = elImages.value.trim();

@@ -11,6 +11,7 @@ for (let i = 0; i < searchForm.length; i++) {
     const inputKeyword = searchForm[i].querySelector('[name="keyword"]');
     console.log('inputKeyword', inputKeyword.value);
     const value = encodeURIComponent(inputKeyword.value);
+    console.log('value', value);
     window.location.href = `search.html?keyword=${value}`;//Chuyển hướng 
   })
 }
@@ -78,6 +79,7 @@ function renderMenu(arrData) {
                 <li class="nav-item"><a class="dropdown-item" href="profile.html">Thông tin tài khoản</a></li>
                 <li class="nav-item"><a class="dropdown-item" href="change-password.html">Đổi mật khẩu</a></li>
                 <li class="nav-item"><a class="dropdown-item" href="admin-post-create.html">Thêm bài viết</a></li>
+                <li class="nav-item"><a class="dropdown-item" href="admin-post-management.html">Quản lý bài viết</a></li>
                 <li class="nav-item"><a class="dropdown-item btn-logout" href="#">Đăng Xuất</a></li>
               </ul>
             </li>`

@@ -589,12 +589,12 @@ var theme = {
     var preloader = document.querySelector('.page-loader');
     if(preloader != null) {
       document.body.onload = function(){
-        setTimeout(function() {
-          if( !preloader.classList.contains('done') )
-          {
-            preloader.classList.add('done');
-          }
-        }, 1000)
+        // setTimeout(function() {
+        //   if( !preloader.classList.contains('done') )
+        //   {
+        //     preloader.classList.add('done');
+        //   }
+        // }, 1000)
       }
     }
   },

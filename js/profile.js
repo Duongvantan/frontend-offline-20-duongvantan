@@ -1,14 +1,3 @@
-API.get('auth/me', {
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
-}).then(res => {
-  
-}).catch((err)=>{
-  window.location.href="index.html"
-})
-
-
 let inputName = document.getElementById("name");
 let inputEmail = document.getElementById("email");
 let inputPhone = document.getElementById("phone");
@@ -27,6 +16,8 @@ API.get('auth/me', {
     inputEmail.value = user.email
     inputPhone.value = user.phone
     inputAddress.value = user.address
+  }).catch((err)=>{
+    window.location.href="index.html"
   })
 
 // bắt sự kiện submit của form profile
